@@ -10,11 +10,15 @@
 <script setup>
 import {computed, inject, onMounted, watch} from "vue"
 import {useRouter} from "vue-router"
-import ProjectModal from "/src/vue/components/projects/ProjectModal.vue"
 import {useUtils} from "/src/composables/utils.js"
+import {useLayout} from "/src/composables/layout.js"
+import {useScheduler} from "/src/composables/scheduler.js"
+import ProjectModal from "/src/vue/components/projects/ProjectModal.vue"
 
 const router = useRouter()
 const utils = useUtils()
+const layout = useLayout()
+const scheduler = useScheduler()
 
 const loaderEnabled = inject("loaderEnabled")
 const loaderActive = inject("loaderActive")
@@ -55,14 +59,28 @@ watch(() => loaderAnimationStatus.value, () => {
             document.querySelector(hash) :
             null
 
+        scheduler.clearAllWithTag("content-scroll")
         if(!element || !loaderEnabled) {
             window.scrollTo({top: 0, behavior: "instant"})
             return
         }
 
-        element.scrollIntoView({behavior: "smooth"})
+        _scrollElementIntoView(element)
     }
 })
+
+const _scrollElementIntoView = (element) => {
+    const canScroll = layout.isBodyScrollEnabled()
+
+    if(!canScroll) {
+        return scheduler.schedule(() => {
+            _scrollElementIntoView(element)
+        }, 100, "content-scroll")
+    }
+
+    scheduler.clearAllWithTag("content-scroll")
+    element.scrollIntoView({behavior: "smooth"})
+}
 
 router.beforeEach((to, from, next) => {
     if(from.name === to.name || !loaderEnabled) {

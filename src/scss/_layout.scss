@@ -7,13 +7,6 @@ body {
     background-color: $dark;
 }
 
-body.body-no-scroll {
-    overflow-y: hidden!important;
-    @include media-breakpoint-down(lg) {
-        position: fixed!important;
-    }
-}
-
 /** ----------- SELECTION ------------- **/
 ::-moz-selection {
     color: $dark;

@@ -11,27 +11,32 @@ export function useLayout() {
      * @param {Boolean} enabled
      */
     const setBodyScrollEnabled = (enabled) => {
-        const body = document.body
+        window.__scrollEnabled = enabled
 
         if(!enabled) {
-            window.savedScrollY = window.scrollY
-            body.classList.add(`body-no-scroll`)
-            if(utils.isIOS()) {
-                body.classList.add(`position-fixed`)
-            }
+            document.body.style.position = 'fixed'
+            document.body.style.top = `0px`
+            document.body.style.left = '0'
+            document.body.style.right = '0'
+            document.body.style.width = '100%'
+            document.body.style.overflow = 'hidden'
         }
         else {
-            body.classList.remove(`body-no-scroll`)
-            body.classList.remove(`position-fixed`)
-
-            if(window.savedScrollY) {
-                window.scrollTo({
-                    top: window.savedScrollY,
-                    behavior: "instant"
-                })
-                window.savedScrollY = null
-            }
+            document.body.style.position = ''
+            document.body.style.top = ''
+            document.body.style.left = ''
+            document.body.style.right = ''
+            document.body.style.width = ''
+            document.body.style.overflow = ''
         }
+    }
+
+    /**
+     * @return {Boolean}
+     */
+    const isBodyScrollEnabled = () => {
+        if(window.__scrollEnabled === undefined) window.__scrollEnabled = true
+        return window.__scrollEnabled
     }
 
     /**
@@ -68,6 +73,7 @@ export function useLayout() {
 
     return {
         setBodyScrollEnabled,
+        isBodyScrollEnabled,
         isElementOutsideBounds,
         scrollIntoView
     }
