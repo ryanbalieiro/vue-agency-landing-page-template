@@ -17,7 +17,7 @@
     "emailjs": "^4.0.3",
     "gh-pages": "^6.3.0",
     "primeicons": "^7.0.0",
-    "swiper": "^10.0.4",
+    "swiper": "^14.2.0",
     "vue": "^3.2.47",
     "vue-router": "^4.2.4"
   },

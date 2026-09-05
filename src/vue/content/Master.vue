@@ -28,7 +28,7 @@
                           ]"
                           :links="[
                               {label: `Linkedin`, href: `https://linkedin.com`, faIcon:`fa-brands fa-linkedin`},
-                              {label: `Twitter`, href: `https://x.com`, faIcon:`fa-brands fa-x-twitter`},
+                              {label: `X`, href: `https://x.com`, faIcon:`fa-brands fa-x-twitter`},
                               {label: `TikTok`, href: `https://tiktok.com`, faIcon:`fa-brands fa-tiktok`},
                               {label: `Spotify`, href: `https://spotify.com`, faIcon:`fa-brands fa-spotify`},
                           ]"
